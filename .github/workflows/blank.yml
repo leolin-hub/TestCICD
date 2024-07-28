@@ -33,11 +33,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install pandas scikit-learn numpy
 
-      - name: Fetch data from public API
+      - name: Run Python Script
         run: |
           python fetch_data.py
 
-      - name: Display fetched data
-        run: cat data.json
+      - name: Commit and push predictions.csv
+        run: |
+          git add predictions.csv
+          git commit -m "Add predictions.csv"
+          git push origin main

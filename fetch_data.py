@@ -1,15 +1,25 @@
-import requests
-import json
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import numpy as np
 
-# 公開API的URL
-url = 'https://api.example.com/data'
+# 生成toy data
+np.random.seed(0)
+X = 2 * np.random.rand(100, 1)
+y = 4 + 3 * X + np.random.randn(100, 1)
 
-response = requests.get(url)
+# 分割數據集
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-# 檢查請求是否成功
-if response.status_code == 200:
-    data = response.json()
-    with open('data.json', 'w') as f:
-        json.dump(data, f, indent=4)
-else:
-    print(f"Failed to fetch data: {response.status_code}")
+# 訓練線性回歸模型
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# 進行預測
+y_pred = model.predict(X_test)
+
+# 保存結果到CSV文件
+results = pd.DataFrame(data={'Actual': y_test.flatten(), 'Predicted': y_pred.flatten()})
+results.to_csv('predictions.csv', index=False)
+
+print("Prediction results saved to predictions.csv")
