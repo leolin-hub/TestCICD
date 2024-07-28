@@ -41,6 +41,8 @@ jobs:
 
       - name: Commit and push predictions.csv
         run: |
+          git config --global user.email "leolin900114@gmail.com"
+          git config --global user.name "leolin-hub"
           git add predictions.csv
           git commit -m "Add predictions.csv"
           git push origin main
