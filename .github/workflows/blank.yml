@@ -41,10 +41,10 @@ jobs:
 
       - name: Commit and push predictions.csv
         env: 
-          GH_PAT: ${{ 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 }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.email "leolin900114@gmail.com"
           git config --global user.name "leolin-hub"
           git add predictions.csv
           git commit -m "Add predictions.csv"
-          git push https://leolin-hub:${GH_PAT}@github.com/leolin-hub/TestCICD.git
+          git push https://leolin-hub:${{ secrets.GH_PAT }}@github.com/leolin-hub/TestCICD.git
